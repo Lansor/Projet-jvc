@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { connectDB } from "./src/config/database.js";
+import gamesRouter from "./src/routes/games.routes.js";
 
 const app = express();
 
@@ -10,10 +11,17 @@ app.use(express.json());
 
 const port = process.env.APP_PORT || 3000;
 
-// TODO: ajouter les routes (games, auth, etc.)
-
 app.get("/api/health", (req, res) => {
 	res.json({ status: "ok" });
+});
+
+// Routes API
+app.use("/api/games", gamesRouter);
+
+
+app.use((err, req, res, next) => {
+	console.error("Erreur API :", err);
+	res.status(500).json({ message: "Erreur serveur" });
 });
 
 const startServer = async () => {
