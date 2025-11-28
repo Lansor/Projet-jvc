@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const GameCard = ({ game, onDelete }) => {
+const GameCard = ({ game, onDelete , login}) => {
 	return (
 		<div className="game-card">
 			<div className="game-card-main">
@@ -61,16 +61,25 @@ const GameCard = ({ game, onDelete }) => {
 							Ajouté par : {game.createdBy.username}
 						</span>
 					)}
-					<Link to={`/games/edit/${game._id}`} className="game-card-footer-link">
-						Modifier
-					</Link>
-					<button
-						 type="button"
-						 className="game-card-footer-link game-card-footer-danger"
-						 onClick={() => onDelete(game._id)}
-					>
-						Supprimer
-					</button>
+					{login && (
+  <div className="flex gap-2 mt-2">
+    <Link
+      to={`/games/edit/${game._id}`}
+      className="game-card-footer-link"
+    >
+      Modifier
+    </Link>
+
+    <button
+      type="button"
+      className="game-card-footer-link game-card-footer-danger"
+      onClick={() => onDelete(game._id)}
+    >
+      Supprimer
+    </button>
+  </div>
+)}
+
 				</div>
 			</div>
 		</div>

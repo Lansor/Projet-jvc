@@ -109,9 +109,8 @@ const [typingTimeout, setTypingTimeout] = useState(null);
       </div>
 
       <div className="flex items-center gap-4">
-        <Link to="/games/create">
-          <button type="button">Créer un jeu vidéo</button>
-        </Link>
+
+       
 
         {!currentUser && (
           <>
@@ -125,9 +124,14 @@ const [typingTimeout, setTypingTimeout] = useState(null);
         )}
 
         {currentUser && (
+          <>
+           <Link to="/games/create">
+          <button type="button">Créer un jeu vidéo</button>
+        </Link>
           <button type="button" onClick={handleLogout}>
             Se déconnecter
           </button>
+          </>
         )}
 
         <SearchBar search={search} onSearchChange={setSearch} />
@@ -152,12 +156,12 @@ const [typingTimeout, setTypingTimeout] = useState(null);
         ) : search === "" ? (
           // Aucun texte dans la barre → liste complète
           games.map((game) => (
-            <GameCard key={game._id} game={game} onDelete={handleDelete} />
+            <GameCard key={game._id} game={game} onDelete={handleDelete} login ={currentUser? true : false}/>
           ))
         ) : filteredGames.length > 0 ? (
           // Résultats trouvés
           filteredGames.map((game) => (
-            <GameCard key={game._id} game={game} onDelete={handleDelete} />
+            <GameCard key={game._id} game={game} onDelete={handleDelete} login ={currentUser? true : false}/>
           ))
         ) : (
           // Aucun résultat pour la recherche
