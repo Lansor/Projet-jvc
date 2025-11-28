@@ -5,6 +5,7 @@ import GamesList from "./pages/Games/List.jsx";
 import GameCreate from "./pages/Games/Create.jsx";
 import GameEdit from "./pages/Games/Edit.jsx";
 import SignIn from "./pages/Auth/SignIn/index.jsx";
+import SignUp from "./pages/Auth/SignUp.jsx";
 
 const Router = () => {
 	return (
@@ -12,6 +13,7 @@ const Router = () => {
 			<div className="container">
 				<Routes>
 					<Route path="/auth/sign-in" element={<SignIn />} />
+					<Route path="/auth/sign-up" element={<SignUp />} />
 					<Route path="/games" element={<GamesList />} />
 					<Route path="/games/create" element={<GameCreate />} />
 					<Route path="/games/edit/:id" element={<GameEdit />} />

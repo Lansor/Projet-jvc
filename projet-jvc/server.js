@@ -3,6 +3,8 @@ import express from "express";
 import cors from "cors";
 import { connectDB } from "./src/config/database.js";
 import gamesRouter from "./src/routes/games.routes.js";
+import usersRouter from "./src/routes/users.routes.js";
+import authRouter from "./src/routes/auth.routes.js";
 
 const app = express();
 
@@ -17,7 +19,8 @@ app.get("/api/health", (req, res) => {
 
 // Routes API
 app.use("/api/games", gamesRouter);
-
+app.use("/api/users", usersRouter);
+app.use("/api/auth", authRouter);
 
 app.use((err, req, res, next) => {
 	console.error("Erreur API :", err);

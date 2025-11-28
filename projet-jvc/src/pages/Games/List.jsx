@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { apiService } from "../../main";
 import GameCard from "../../components/Card/GameCard.jsx";
 
@@ -7,6 +7,8 @@ const GamesList = () => {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [currentUser, setCurrentUser] = useState(null);
+  const navigate = useNavigate();
 
   const fetchGames = async () => {
     try {
@@ -29,6 +31,14 @@ const GamesList = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("currentUser");
+    apiService.setToken("");
+    setCurrentUser(null);
+    navigate("/games");
+  };
+
   useEffect(() => {
     const load = async () => {
       try {
@@ -39,6 +49,17 @@ const GamesList = () => {
     };
 
     load();
+  }, []);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("currentUser");
+    if (stored) {
+      try {
+        setCurrentUser(JSON.parse(stored));
+      } catch (e) {
+        console.error("Impossible de parser currentUser", e);
+      }
+    }
   }, []);
 
   const handleDelete = async (id) => {
@@ -61,10 +82,32 @@ const GamesList = () => {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-4xl font-bold">Liste des jeux vidéo</h1>
-        <Link to="/games/create">
-          <button type="button">Créer un jeu vidéo</button>
-        </Link>
+        <div className="flex flex-col">
+          <h1 className="text-4xl font-bold">Liste des jeux vidéo</h1>
+          {currentUser && (
+            <span className="mt-1 text-lg">Bienvenue {currentUser.username}</span>
+          )}
+        </div>
+        <div className="flex gap-2">
+          <Link to="/games/create">
+            <button type="button">Créer un jeu vidéo</button>
+          </Link>
+          {!currentUser && (
+            <>
+              <Link to="/auth/sign-up">
+                <button type="button">Créer un utilisateur</button>
+              </Link>
+              <Link to="/auth/sign-in">
+                <button type="button">Se connecter</button>
+              </Link>
+            </>
+          )}
+          {currentUser && (
+            <button type="button" onClick={handleLogout}>
+              Se déconnecter
+            </button>
+          )}
+        </div>
       </div>
 
       <p>
