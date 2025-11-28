@@ -15,9 +15,9 @@ const GameCard = ({ game, onDelete }) => {
 				<div className="game-card-content">
 					<div className="game-card-header">
 						<h2 className="game-card-title">{game.title}</h2>
-						<div className="game-card-platforms">
-							{game.platforms || "PC"}
-						</div>
+						{game.platforms && (
+							<div className="game-card-platforms">{game.platforms}</div>
+						)}
 					</div>
 					<p className="game-card-description">{game.description}</p>
 					<div className="game-card-meta">
@@ -34,6 +34,14 @@ const GameCard = ({ game, onDelete }) => {
 					<small>Note globale</small>
 				</div>
 				<div className="game-card-footer-actions">
+					{game.createdBy?.username && (
+						<span
+							className="game-card-added-by"
+							style={{ flex: 1, textAlign: "center" }}
+						>
+							Ajouté par : {game.createdBy.username}
+						</span>
+					)}
 					<Link to={`/games/edit/${game._id}`} className="game-card-footer-link">
 						Modifier
 					</Link>
