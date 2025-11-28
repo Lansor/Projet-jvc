@@ -142,31 +142,30 @@ const [typingTimeout, setTypingTimeout] = useState(null);
     {loading && <p>Chargement des jeux...</p>}
     {error && <p className="text-red-500">{error}</p>}
 
-    {!loading && !error && (
+      {!loading && !error && (
       <div className="flex flex-col gap-6 mt-8 max-w-3xl mx-auto w-full">
 
-        {search === ""
-          ? (
-              // Aucun texte dans la barre → liste complète
-              games.map((game) => (
-                <GameCard key={game._id} game={game} onDelete={handleDelete} />
-              ))
-            )
-          : filteredGames.length > 0
-            ? (
-              // Résultats trouvés
-              filteredGames.map((game) => (
-                <GameCard key={game._id} game={game} onDelete={handleDelete} />
-              ))
-            )
-            : (
-              // Aucun résultat
-              <p className="text-center italic text-gray-600 col-span-full">
-                Aucun jeu trouvé pour «{" "}
-                <span className="font-semibold">{search}</span> »
-              </p>
-            )
-        }
+        {games.length === 0 ? (
+          <p className="text-center italic text-gray-600 col-span-full">
+            Aucun jeu stocké
+          </p>
+        ) : search === "" ? (
+          // Aucun texte dans la barre → liste complète
+          games.map((game) => (
+            <GameCard key={game._id} game={game} onDelete={handleDelete} />
+          ))
+        ) : filteredGames.length > 0 ? (
+          // Résultats trouvés
+          filteredGames.map((game) => (
+            <GameCard key={game._id} game={game} onDelete={handleDelete} />
+          ))
+        ) : (
+          // Aucun résultat pour la recherche
+          <p className="text-center italic text-gray-600 col-span-full">
+            Aucun jeu trouvé pour «{" "}
+            <span className="font-semibold">{search}</span> »
+          </p>
+        )}
 
       </div>
     )}
