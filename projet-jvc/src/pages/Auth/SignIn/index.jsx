@@ -1,12 +1,53 @@
-import React, { useState } from "react";
-import Input from "../../../components/Form/Input";
-import Button from "../../../components/Button";
-import { Link, useNavigate } from "react-router-dom";
-import { apiService } from "../../../main";
-import { useAppStore } from "../../../stores/app.store";
+import React, { useState } from 'react'
+import Input from '../../../components/Form';
+import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
-<div className="flex flex-col items-center justify-center">
+  const navigate = useNavigate();
+
+  const [data, setData] = useState({
+    identifier: "",
+    password: "",
+  });
+
+
+const [errors, setErrors] = useState({
+    identifier: "",
+    password: "",
+    request: "",
+  });
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    setErrors({
+      identifier: "",
+      password: "",
+      request: "",
+    });
+
+    const newErrors = {};
+
+    if (!data.identifier) {
+      newErrors.identifier = "Le nom d'utilisateur n'est pas valide";
+    }
+
+    if (!data.password) {
+      newErrors.password = "Le mot de passe n'est pas valide";
+    }
+
+    if (newErrors.identifier || newErrors.password) {
+      setErrors(newErrors);
+      return;
+    }
+
+ const handleChange = (e) => {
+    setData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+  };
+
+ return (
+    <div className="flex flex-col items-center justify-center">
       <h1 className="text-4xl font-bold text-white text-center">Sign In</h1>
       <form
         className="mt-8 max-w-lg flex flex-col gap-2 mx-auto w-full"
@@ -50,4 +91,7 @@ const SignIn = () => {
       </Link>
     </div>
   );
-};
+}}
+
+export default SignIn
+
