@@ -7,6 +7,7 @@ export const createGameSchema = Joi.object({
   rating: Joi.number().min(0).max(5).required(),
   genre: Joi.string().allow(""),
   releaseYear: Joi.number().integer().min(1970).max(new Date().getFullYear()).optional(),
+  imageUrl: Joi.string().uri().optional().allow(""),
 });
 
 export const updateGameSchema = createGameSchema.min(1);

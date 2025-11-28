@@ -7,9 +7,22 @@ const GameCard = ({ game, onDelete }) => {
 			<div className="game-card-main">
 				{/* Colonne gauche : image ou placeholder */}
 				<div className="game-card-cover" aria-hidden="true">
-					<span className="game-card-cover-title">
-						{game.title?.[0] || "?"}
-					</span>
+					{game.imageUrl ? (
+						<img
+							src={game.imageUrl}
+							alt={game.title}
+							style={{
+								width: "100%",
+								height: "100%",
+								objectFit: "cover",
+								borderRadius: "12px",
+							}}
+						/>
+					) : (
+						<span className="game-card-cover-title">
+							{game.title?.[0] || "?"}
+						</span>
+					)}
 				</div>
 				{/* Colonne droite : infos du jeu */}
 				<div className="game-card-content">

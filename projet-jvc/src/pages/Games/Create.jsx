@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiService } from "../../main";
+import GameForm from "../../components/Game/GameForm";
 
 const GameCreate = () => {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ const GameCreate = () => {
     rating: "",
     genre: "",
     releaseYear: "",
+    imageUrl: "",
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -50,56 +52,15 @@ const GameCreate = () => {
   };
 
   return (
-    <div>
-      <h1>Créer un jeu vidéo</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-2 max-w-md">
-        <input
-          name="title"
-          placeholder="Titre"
-          value={data.title}
-          onChange={handleChange}
-        />
-        <textarea
-          name="description"
-          placeholder="Description"
-          value={data.description}
-          onChange={handleChange}
-        />
-        <input
-          name="price"
-          type="number"
-          placeholder="Prix"
-          value={data.price}
-          onChange={handleChange}
-        />
-        <input
-          name="rating"
-          type="number"
-          placeholder="Note (0-5)"
-          value={data.rating}
-          onChange={handleChange}
-        />
-        <input
-          name="genre"
-          placeholder="Genre"
-          value={data.genre}
-          onChange={handleChange}
-        />
-        <input
-          name="releaseYear"
-          type="number"
-          placeholder="Année de sortie"
-          value={data.releaseYear}
-          onChange={handleChange}
-        />
-
-        {error && <p style={{ color: "red" }}>{error}</p>}
-
-        <button type="submit" disabled={loading}>
-          {loading ? "Création..." : "Créer"}
-        </button>
-      </form>
-    </div>
+    <GameForm
+      title="Créer un jeu vidéo"
+      data={data}
+      onChange={handleChange}
+      onSubmit={handleSubmit}
+      loading={loading}
+      error={error}
+      submitLabel="Créer"
+    />
   );
 };
 

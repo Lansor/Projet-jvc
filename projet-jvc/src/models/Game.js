@@ -31,31 +31,14 @@ const gameSchema = new mongoose.Schema(
     releaseYear: {
       type: Number,
     },
+    imageUrl: {
+      type: String,
+      trim: true,
+    },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-    reviews: [
-      {
-        user: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
-        },
-        comment: {
-          type: String,
-          trim: true,
-        },
-        rating: {
-          type: Number,
-          min: 0,
-          max: 5,
-        },
-        createdAt: {
-          type: Date,
-          default: Date.now,
-        },
-      },
-    ],
   },
   {
     timestamps: true,
