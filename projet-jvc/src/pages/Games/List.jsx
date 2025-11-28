@@ -115,7 +115,7 @@ const [typingTimeout, setTypingTimeout] = useState(null);
         {!currentUser && (
           <>
             <Link to="/auth/sign-up">
-              <button type="button">Créer un utilisateur</button>
+              <button type="button">S'inscrire</button>
             </Link>
             <Link to="/auth/sign-in">
               <button type="button">Se connecter</button>
@@ -138,10 +138,10 @@ const [typingTimeout, setTypingTimeout] = useState(null);
       </div>
     </div>
 
-    <p>
+    {/* <p>
       Affichage des jeux récupérés depuis l'API (
       {import.meta.env.VITE_API_BASE_URL})
-    </p>
+    </p> */}
 
     {loading && <p>Chargement des jeux...</p>}
     {error && <p className="text-red-500">{error}</p>}

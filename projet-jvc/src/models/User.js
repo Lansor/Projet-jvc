@@ -21,7 +21,6 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { timestamps: true }
 );
 
 // Hash du mot de passe avant sauvegarde
