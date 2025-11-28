@@ -35,7 +35,9 @@ const GameCard = ({ game, onDelete }) => {
 					<p className="game-card-description">{game.description}</p>
 					<div className="game-card-meta">
 						{game.price && <span>Prix : {game.price} €</span>}
-						{game.rating && <span>Note : {game.rating} / 5</span>}
+						{game.rating !== undefined && game.rating !== null && (
+							<span>Note : {game.rating} / 5</span>
+						)}
 						{game.genre && <span>Genre : {game.genre}</span>}
 						{game.releaseYear && <span>Année : {game.releaseYear}</span>}
 					</div>
@@ -43,7 +45,11 @@ const GameCard = ({ game, onDelete }) => {
 			</div>
 			<div className="game-card-footer">
 				<div className="game-card-footer-item game-card-footer-main">
-					<div className="game-card-score">{game.rating ? `${game.rating * 4}/20` : "-"}</div>
+					<div className="game-card-score">
+						{game.rating !== undefined && game.rating !== null
+								? `${game.rating * 4}/20`
+								: "-"}
+					</div>
 					<small>Note globale</small>
 				</div>
 				<div className="game-card-footer-actions">
