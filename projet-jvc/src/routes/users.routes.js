@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { getUserProfileWithReviews } from "../controllers/users.controller.js";
+import { getUserProfile} from "../controllers/users.controller.js";
 
 const router = Router();
 
-router.get("/:id/profile", getUserProfileWithReviews);
+router.get("/:id/profile", getUserProfile);
 
 export default router;

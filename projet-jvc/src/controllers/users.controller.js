@@ -1,13 +1,11 @@
 import { User } from "../models/User.js";
 
 // Retourne un profil utilisateur simple, sans reviews
-export const getUserProfileWithReviews = async (req, res, next) => {
+export const getUserProfile = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const user = await User.findById(id).select(
-      "username email createdAt"
-    );
+    const user = await User.findById(id).select("username email");
     if (!user) {
       return res.status(404).json({ message: "Utilisateur non trouvé" });
     }
