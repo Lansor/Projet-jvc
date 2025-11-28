@@ -2,7 +2,9 @@ import { Game } from "../models/Game.js";
 
 export const getAllGames = async (req, res, next) => {
   try {
-    const games = await Game.find().sort({ createdAt: -1 });
+    const games = await Game.find()
+      .populate("createdBy", "username email")
+      .sort({ createdAt: -1 });
     res.json(games);
   } catch (error) {
     next(error);
@@ -26,6 +28,16 @@ export const createGame = async (req, res, next) => {
     const payload = { ...req.body };
     if (req.user?.id) {
       payload.createdBy = req.user.id;
+    }
+
+    // Empêche la création de doublons par titre (insensible à la casse)
+    const existing = await Game.findOne({
+      title: new RegExp(`^${payload.title}$`, "i"),
+    });
+    if (existing) {
+      return res
+        .status(409)
+        .json({ message: "Un jeu avec ce titre existe déjà." });
     }
 
     const game = new Game(payload);
