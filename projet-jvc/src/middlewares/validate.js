@@ -4,7 +4,7 @@ export const validateBody = (schema) => {
 
     if (error) {
       return res.status(400).json({
-        message: "Données invalides",
+        message: error.message,
         details: error.details.map((d) => d.message),
       });
     }
