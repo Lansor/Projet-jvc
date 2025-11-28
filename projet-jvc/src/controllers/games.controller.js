@@ -23,7 +23,12 @@ export const getGameById = async (req, res, next) => {
 
 export const createGame = async (req, res, next) => {
   try {
-    const game = new Game(req.body);
+    const payload = { ...req.body };
+    if (req.user?.id) {
+      payload.createdBy = req.user.id;
+    }
+
+    const game = new Game(payload);
     await game.save();
     res.status(201).json(game);
   } catch (error) {
